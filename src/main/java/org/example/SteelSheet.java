@@ -53,11 +53,13 @@ public abstract class SteelSheet {
                 ", density-> " + density +
                 ", width-> " + width +
                 ", length-> " + length +
+                ", area-> " + area() +
                 ", weight-> " + weight() +
                 '}';
     }
 
     public abstract double area();
+
     public double weight() {
         return area() * density * thickness;
     }

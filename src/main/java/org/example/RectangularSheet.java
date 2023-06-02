@@ -10,5 +10,4 @@ public class RectangularSheet extends SteelSheet {
     public double area() {
         return getWidth() * getLength();
     }
-
 }

@@ -15,56 +15,60 @@ public class Main {
         Random random = new Random();
         int randomSteelSheets;
         for (int i = 0; i < countOfSheets; i++) {
-            randomSteelSheets = random.nextInt(5);
+            randomSteelSheets = random.nextInt(4);
             switch (randomSteelSheets) {
                 case 0 -> steelSheets[i] = new RectangularSheet(1, 1, 1, 1);
                 case 1 -> steelSheets[i] = new TriangularSheet(2, 2, 2, 2);
-                case 3 -> steelSheets[i] = new SquareSheet(3, 3, 3);
-                case 4 -> steelSheets[i] = null;
+                case 2 -> steelSheets[i] = new SquareSheet(3, 3, 3);
+                case 3 -> steelSheets[i] = null;
             }
         }
 
         for (SteelSheet steelSheet : steelSheets) {
             System.out.println(steelSheet);
         }
-
+        System.out.println("-".repeat(20));
         System.out.println("totalAreas is-> " + getTotalAreas());
-        System.out.println("averageArea-> " + getAverageArea());
-        System.out.println("totalWeight->" + getTotalWeight());
+        System.out.println("averageArea-> " + String.format("%.2f", getAverageArea()));
+        System.out.println("totalWeight-> " + getTotalWeight());
+        System.out.println("-".repeat(20));
     }
 
     static double getTotalAreas() {
         double totalAreas = 0d;
-        try {
-            for (SteelSheet steelSheet : steelSheets) {
+
+        for (SteelSheet steelSheet : steelSheets) {
+            try {
                 totalAreas += steelSheet.area();
+            } catch (NullPointerException exception) {
+                System.err.println("getTotalAreas -> Sheet is null !!!");
             }
-        } catch (NullPointerException exception) {
-            System.err.println("Sheet is null !!!");
         }
         return totalAreas;
     }
 
     static double getAverageArea() {
         double averageArea = 0d;
-        try {
-            for (SteelSheet steelSheet : steelSheets) {
+        int steelSheetCounter = steelSheets.length;
+        for (SteelSheet steelSheet : steelSheets) {
+            try {
                 averageArea += steelSheet.area();
+            } catch (NullPointerException exception) {
+                System.err.println("getAverageArea -> Sheet is null !!!");
+                steelSheetCounter--;
             }
-        } catch (NullPointerException exception) {
-            System.err.println("Sheet is null !!!");
         }
-        return averageArea / steelSheets.length;
+        return averageArea / steelSheetCounter;
     }
 
     static double getTotalWeight() {
         double totalWeight = 0d;
-        try {
-            for (SteelSheet steelSheet : steelSheets) {
-                totalWeight += steelSheet.getWidth();
+        for (SteelSheet steelSheet : steelSheets) {
+            try {
+                totalWeight += steelSheet.weight();
+            } catch (NullPointerException exception) {
+                System.err.println("getTotalWeight -> Sheet is null !!!");
             }
-        } catch (NullPointerException exception) {
-            System.err.println("Sheet is null !!!");
         }
         return totalWeight;
     }
